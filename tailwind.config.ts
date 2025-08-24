@@ -18,7 +18,16 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				montserrat: ['Montserrat Alternates', 'sans-serif'],
+				inter: ['Inter', 'sans-serif'],
+			},
 			colors: {
+				'shoc-yellow': 'hsl(var(--shoc-yellow))',
+				'shoc-black': 'hsl(var(--shoc-black))',
+				'shoc-white': 'hsl(var(--shoc-white))',
+				'shoc-steel': 'hsl(var(--shoc-steel))',
+				'shoc-emerald': 'hsl(var(--shoc-emerald))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

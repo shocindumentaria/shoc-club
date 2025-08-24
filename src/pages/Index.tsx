@@ -1,12 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
+import Benefits from "@/components/Benefits";
+import Pricing from "@/components/Pricing";
+import Gallery from "@/components/Gallery";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import FinalCTA from "@/components/FinalCTA";
+import Footer from "@/components/Footer";
+import LeadModal from "@/components/LeadModal";
 
 const Index = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleJoinClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Quiero unirme al Club SHOC (prelanzamiento)");
+    window.open(`https://wa.me/5493885123456?text=${message}`, '_blank');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* SEO Meta Tags would be handled in index.html */}
+      <Hero onJoinClick={handleJoinClick} onWhatsAppClick={handleWhatsAppClick} />
+      <HowItWorks />
+      <Benefits />
+      <Pricing onJoinClick={handleJoinClick} />
+      <Gallery />
+      <Testimonials />
+      <FAQ />
+      <FinalCTA onJoinClick={handleJoinClick} />
+      <Footer />
+      <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
