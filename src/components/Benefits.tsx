@@ -65,7 +65,7 @@ const Benefits = () => {
             <span className="text-primary"> una membresía</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Acceso a beneficios reales: prendas limitadas, experiencias presenciales 
+            Acceso a beneficios reales: prendas limitadas, experiencias digitales 
             y sorpresas mensuales que valen la pena.
           </p>
         </div>
