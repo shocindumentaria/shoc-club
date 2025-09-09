@@ -41,8 +41,8 @@ const HowItWorks = () => {
     },
     {
       icon: Calendar,
-      title: "Eventos privados",
-      description: "Meetups y experiencias exclusivas",
+      title: "Acceso anticipado",
+      description: "Primera oportunidad a colecciones limitadas",
     },
     {
       icon: Gift,

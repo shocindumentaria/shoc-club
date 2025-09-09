@@ -10,7 +10,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "¿Qué incluye exactamente la membresía Club SHOC?",
-      answer: "Tu membresía incluye beneficios mensuales como prendas de edición limitada, accesorios exclusivos, acceso prioritario a eventos privados, descuentos especiales, certificaciones digitales de autenticidad, y participación en la comunidad privada de SHOC donde podrás votar por futuros diseños."
+      answer: "Tu membresía incluye beneficios mensuales como prendas de edición limitada, accesorios exclusivos, acceso anticipado a colecciones limitadas, descuentos especiales, certificaciones digitales de autenticidad, y acceso al Hub Digital con experiencias exclusivas y comunidad privada donde podrás votar por futuros diseños."
     },
     {
       question: "¿Cuánto dura la membresía y puedo renovarla?",
@@ -25,8 +25,8 @@ const FAQ = () => {
       answer: "Debido a la naturaleza exclusiva y limitada de nuestros productos, no ofrecemos reembolsos una vez iniciada la membresía. Sin embargo, puedes transferir tu lugar a otra persona antes del inicio de tu cohorte sin costo adicional."
     },
     {
-      question: "¿En qué ciudades habrá eventos y actividades?",
-      answer: "Comenzamos con eventos en Jujuy y gradualmente nos expandiremos por el NOA (Salta, Tucumán, Catamarca) y otras provincias de Argentina. Los miembros serán notificados con anticipación sobre eventos en su región."
+      question: "¿Cómo funciona el acceso anticipado a colecciones?",
+      answer: "Los miembros del Club SHOC reciben acceso exclusivo 48 horas antes del lanzamiento público de nuevas colecciones limitadas, garantizando disponibilidad de stock y la primera oportunidad de conseguir las piezas más buscadas."
     },
     {
       question: "¿Cómo puedo contactar al soporte si tengo problemas?",
@@ -84,7 +84,7 @@ const FAQ = () => {
             </div>
             <div className="flex gap-3">
               <a 
-                href="mailto:hola@shoc.com.ar" 
+                href="mailto:shocindumentaria@gmail.com" 
                 className="px-4 py-2 bg-card border border-border rounded-xl hover:bg-secondary/20 transition-colors text-sm font-medium"
               >
                 Email

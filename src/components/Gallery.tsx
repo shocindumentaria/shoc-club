@@ -19,9 +19,9 @@ const Gallery = () => {
     {
       id: 2,
       image: eventSpace,
-      title: "Eventos Privados",
-      description: "Espacios únicos para la comunidad SHOC",
-      category: "Eventos",
+      title: "Hub Digital SHOC",
+      description: "Plataforma exclusiva con experiencias digitales",
+      category: "Digital",
       featured: false,
     },
     {

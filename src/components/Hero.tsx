@@ -32,7 +32,7 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
             </Badge>
             <Badge className="badge-exclusive">
               <Calendar className="w-4 h-4 mr-2" />
-              Eventos privados
+              Acceso anticipado
             </Badge>
             <Badge className="badge-exclusive">
               <Zap className="w-4 h-4 mr-2" />
