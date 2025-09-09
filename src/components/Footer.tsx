@@ -113,6 +113,10 @@ const Footer = () => {
             </div>
             
             <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <a href="/auth" className="hover:text-primary transition-colors">
+                Admin Dashboard
+              </a>
+              <span>•</span>
               <span>Hecho con ❤️ en Argentina</span>
               <div className="w-1 h-1 bg-muted-foreground rounded-full" />
               <span>v1.0.0</span>

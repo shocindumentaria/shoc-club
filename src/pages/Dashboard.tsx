@@ -5,7 +5,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, Users, Mail, Phone, MapPin, Search, Download, Filter } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Calendar, Users, Mail, Phone, MapPin, Search, Download, LogOut, Shield } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
+import AdminSetup from '@/components/AdminSetup';
 import type { Lead } from '@/hooks/useLeads';
 
 interface AnalyticsData {
@@ -23,21 +27,76 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [userEmail, setUserEmail] = useState<string>('');
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
+    checkAuthentication();
   }, []);
+
+  const checkAuthentication = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setIsAuthenticated(false);
+        return;
+      }
+
+      // Check if user is admin
+      const { data: adminUser, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error || !adminUser) {
+        setIsAuthenticated(false);
+        await supabase.auth.signOut();
+        return;
+      }
+
+      setIsAuthenticated(true);
+      setUserEmail(adminUser.email);
+      fetchData();
+    } catch (error) {
+      console.error('Authentication error:', error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/auth');
+  };
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      navigate('/auth');
+    }
+  }, [isAuthenticated, navigate]);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Fetch leads
+      // Fetch leads (now secured by RLS)
       const { data: leadsData, error: leadsError } = await supabase
         .from('leads')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (leadsError) throw leadsError;
+      if (leadsError) {
+        console.error('Error fetching leads:', leadsError);
+        toast({
+          title: "Error de acceso",
+          description: "No tienes permisos para ver los datos. Contacta al administrador.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       setLeads(leadsData || []);
 
       // Calculate analytics
@@ -140,25 +199,52 @@ const Dashboard = () => {
     }
   };
 
-  if (loading) {
+  if (isAuthenticated === null || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-shoc-yellow mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Cargando dashboard...</p>
+          <p className="text-muted-foreground">
+            {isAuthenticated === null ? 'Verificando autenticación...' : 'Cargando dashboard...'}
+          </p>
         </div>
       </div>
     );
+  }
+
+  if (isAuthenticated === false) {
+    return null; // Will redirect in useEffect
   }
 
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Dashboard Club SHOC</h1>
-          <p className="text-muted-foreground">Gestión de inscripciones y analytics</p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Dashboard Club SHOC</h1>
+            <p className="text-muted-foreground">Gestión de inscripciones y analytics</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Conectado como:</p>
+              <p className="font-medium">{userEmail}</p>
+            </div>
+            <Button variant="outline" onClick={handleSignOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              Cerrar Sesión
+            </Button>
+          </div>
         </div>
+
+        {/* Security Alert */}
+        <Alert className="mb-6 border-emerald-200 bg-emerald-50">
+          <Shield className="h-4 w-4" />
+          <AlertDescription>
+            <strong>Sistema Seguro:</strong> Los datos de leads están protegidos y solo accesibles para administradores autenticados. 
+            Todas las consultas están validadas por Row Level Security (RLS).
+          </AlertDescription>
+        </Alert>
 
         {/* Analytics Cards */}
         {analytics && (
@@ -210,10 +296,11 @@ const Dashboard = () => {
         )}
 
         <Tabs defaultValue="leads" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="leads">Leads</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="export">Exportar</TabsTrigger>
+            <TabsTrigger value="admin">Admin</TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads" className="space-y-6">
@@ -384,6 +471,10 @@ const Dashboard = () => {
                 </Button>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="admin">
+            <AdminSetup />
           </TabsContent>
         </Tabs>
       </div>
