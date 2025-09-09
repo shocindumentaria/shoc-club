@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useLeads } from "@/hooks/useLeads";
 import { 
   Crown, 
   Mail, 
@@ -37,16 +38,16 @@ interface LeadModalProps {
 
 const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+  const { submitLead, isSubmitting } = useLeads();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     city: "",
     province: "",
-    emailConsent: false,
-    whatsappConsent: false,
-    termsAccepted: false,
+    consentEmail: false,
+    consentWhatsApp: false,
+    consentTerms: false,
   });
 
   const provinces = [
@@ -63,7 +64,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.termsAccepted) {
+    if (!formData.consentTerms) {
       toast({
         title: "Términos requeridos",
         description: "Debes aceptar los términos y condiciones para continuar.",
@@ -72,20 +73,9 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Here you would typically send to your CRM/email service
-      console.log("Form submitted:", formData);
-      
-      toast({
-        title: "¡Bienvenido al Club SHOC! 🎉",
-        description: "Te confirmamos tu lugar por email. Revisá tu bandeja de entrada.",
-      });
-
+    const result = await submitLead(formData);
+    
+    if (result.success) {
       // Reset form
       setFormData({
         name: "",
@@ -93,20 +83,12 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
         phone: "",
         city: "",
         province: "",
-        emailConsent: false,
-        whatsappConsent: false,
-        termsAccepted: false,
+        consentEmail: false,
+        consentWhatsApp: false,
+        consentTerms: false,
       });
       
       onClose();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Hubo un problema al procesar tu solicitud. Intentá nuevamente.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -218,8 +200,8 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="email-consent"
-                checked={formData.emailConsent}
-                onCheckedChange={(checked) => handleInputChange("emailConsent", checked as boolean)}
+                checked={formData.consentEmail}
+                onCheckedChange={(checked) => handleInputChange("consentEmail", checked as boolean)}
               />
               <Label htmlFor="email-consent" className="text-sm leading-relaxed">
                 Quiero recibir novedades y ofertas por email
@@ -229,8 +211,8 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="whatsapp-consent"
-                checked={formData.whatsappConsent}
-                onCheckedChange={(checked) => handleInputChange("whatsappConsent", checked as boolean)}
+                checked={formData.consentWhatsApp}
+                onCheckedChange={(checked) => handleInputChange("consentWhatsApp", checked as boolean)}
               />
               <Label htmlFor="whatsapp-consent" className="text-sm leading-relaxed">
                 Acepto recibir mensajes por WhatsApp
@@ -240,8 +222,8 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="terms"
-                checked={formData.termsAccepted}
-                onCheckedChange={(checked) => handleInputChange("termsAccepted", checked as boolean)}
+                checked={formData.consentTerms}
+                onCheckedChange={(checked) => handleInputChange("consentTerms", checked as boolean)}
                 required
               />
               <Label htmlFor="terms" className="text-sm leading-relaxed">
@@ -265,9 +247,9 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
           <Button
             type="submit"
             className="w-full btn-hero py-6 text-lg"
-            disabled={isLoading || !formData.termsAccepted}
+            disabled={isSubmitting || !formData.consentTerms}
           >
-            {isLoading ? (
+            {isSubmitting ? (
               <>
                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                 Procesando...
