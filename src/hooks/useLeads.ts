@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Lead {
   id: string;
@@ -35,6 +36,8 @@ export interface LeadFormData {
 export const useLeads = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const tempId = uuidv4();
+
   const submitLead = async (formData: LeadFormData) => {
     setIsSubmitting(true);
     
@@ -63,7 +66,6 @@ export const useLeads = () => {
       const { data, error } = await supabase
         .from('leads')
         .insert([leadData])
-        .select()
         .single();
 
       if (error) throw error;
@@ -79,7 +81,7 @@ export const useLeads = () => {
             consent_email: formData.consentEmail,
             consent_whatsapp: formData.consentWhatsApp
           },
-          user_id: data.id,
+          user_id: tempId,
           utm_source: urlParams.get('utm_source'),
           utm_medium: urlParams.get('utm_medium'),
           utm_campaign: urlParams.get('utm_campaign')
