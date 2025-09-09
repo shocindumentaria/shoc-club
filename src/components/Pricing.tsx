@@ -20,12 +20,12 @@ const Pricing = ({ onJoinClick }: PricingProps) => {
   const includedFeatures = [
     { icon: Crown, text: "1 prenda limitada por mes" },
     { icon: Gift, text: "1 accesorio sorpresa mensual" },
-    { icon: Calendar, text: "Acceso a eventos privados" },
+    { icon: Calendar, text: "Acceso anticipado a colecciones" },
     { icon: Zap, text: "Descuentos exclusivos hasta 40%" },
-    { icon: Users, text: "Comunidad privada de miembros" },
+    { icon: Users, text: "Hub digital de experiencias SHOC" },
+    { icon: Check, text: "Ediciones exclusivas solo para miembros" },
     { icon: Check, text: "Certificación digital de autenticidad" },
-    { icon: Check, text: "Soporte prioritario 24/7" },
-    { icon: Check, text: "Early access a nuevos drops" },
+    { icon: Check, text: "Prioridad en drops limitados" },
   ];
 
   return (
@@ -71,10 +71,10 @@ const Pricing = ({ onJoinClick }: PricingProps) => {
                         <Badge variant="outline" className="text-xs">HASTA 3 CUOTAS</Badge>
                       </div>
                       <div className="text-2xl font-bold font-montserrat">
-                        $126.000
+                        $140.000
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        3 cuotas sin interés de $42.000
+                        3 cuotas sin interés de $46.667
                       </div>
                     </div>
 
@@ -88,10 +88,10 @@ const Pricing = ({ onJoinClick }: PricingProps) => {
                         <Badge className="bg-accent/20 text-accent border-accent/30">10% OFF</Badge>
                       </div>
                       <div className="text-2xl font-bold font-montserrat">
-                        $113.400
+                        $126.000
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        Equivale a $37.800/mes
+                        Equivale a $42.000/mes
                       </div>
                     </div>
                   </div>
