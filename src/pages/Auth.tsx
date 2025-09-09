@@ -42,8 +42,11 @@ const Auth = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    console.log('🔐 Iniciando autenticación...', { email, isSignUp });
+
     try {
       if (isSignUp) {
+        console.log('📝 Registrando nuevo usuario...');
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -52,38 +55,63 @@ const Auth = () => {
           }
         });
 
-        if (error) throw error;
+        if (error) {
+          console.error('❌ Error en registro:', error);
+          throw error;
+        }
 
+        console.log('✅ Usuario registrado exitosamente');
         toast({
           title: "Registro exitoso",
           description: "Revisa tu email para confirmar tu cuenta. Luego contacta al administrador para obtener permisos.",
         });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        console.log('🔑 Intentando login...');
+        const { data: signInData, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
 
-        if (error) throw error;
+        if (error) {
+          console.error('❌ Error en login:', error);
+          throw error;
+        }
+
+        console.log('✅ Login exitoso:', signInData.user?.id);
 
         // Check if user is admin after login
         const { data: { user } } = await supabase.auth.getUser();
+        console.log('👤 Usuario actual:', user?.id, user?.email);
+        
         if (user) {
-          const { data: adminUser } = await supabase
+          console.log('🔍 Verificando permisos de admin...');
+          const { data: adminUser, error: adminError } = await supabase
             .from('admin_users')
             .select('*')
             .eq('user_id', user.id)
-            .single();
+            .maybeSingle();
+          
+          console.log('🛡️ Resultado admin check:', { adminUser, adminError });
+          
+          if (adminError) {
+            console.error('❌ Error al verificar admin:', adminError);
+            throw new Error(`Error al verificar permisos: ${adminError.message}`);
+          }
           
           if (adminUser) {
+            console.log('✅ Usuario es admin, redirigiendo...');
             navigate('/dashboard');
           } else {
+            console.warn('⚠️ Usuario no es admin, cerrando sesión...');
             await supabase.auth.signOut();
-            throw new Error('No tienes permisos para acceder al dashboard. Contacta al administrador.');
+            throw new Error('No tienes permisos para acceder al dashboard. Contacta al administrador para que te agregue como admin.');
           }
+        } else {
+          throw new Error('No se pudo obtener información del usuario');
         }
       }
     } catch (error: any) {
+      console.error('🚨 Error completo:', error);
       toast({
         title: "Error de autenticación",
         description: error.message,
