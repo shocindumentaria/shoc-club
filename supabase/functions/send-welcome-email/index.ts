@@ -1,8 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY") ?? "FtJVy7IZrNCan1L4";
-const SENDER_EMAIL  = Deno.env.get("BREVO_SENDER_EMAIL") ?? "shocindumentaria@gmail.com";
-const SENDER_NAME   = Deno.env.get("BREVO_SENDER_NAME") ?? "SHOC";
-const BCC_EMAIL     = Deno.env.get("BREVO_BCC_EMAIL") ?? "shocindumentaria@gmail.com";
+const BREVO_API_KEY = "FtJVy7IZrNCan1L4";
+const SENDER_EMAIL  = "shocindumentaria@gmail.com";
+const SENDER_NAME   = "SHOC";
+const BCC_EMAIL     = "shocindumentaria@gmail.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Gift, Zap, Calendar } from "lucide-react";
-import heroImage from "@/assets/hero-shoc.jpg";
+import heroImage from "@/assets/hero-grid2.png";
 
 interface HeroProps {
   onJoinClick: () => void;
@@ -82,7 +82,7 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span>Primera cohorte: Febrero 2025</span>
+              <span>Primera cohorte: Septiembre 2025</span>
             </div>
           </div>
         </div>
