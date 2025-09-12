@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SENDER_EMAIL  = Deno.env.get("BREVO_SENDER_EMAIL");
 const SENDER_NAME   = Deno.env.get("BREVO_SENDER_NAME");
@@ -18,33 +19,6 @@ type WelcomeEmailRequest = {
   province?: string;
 };
 
-function buildHtml({ name, phone, city, province }: WelcomeEmailRequest) {
-  return `
-    <h2>¡Hola ${name}! 👋</h2>
-    <p><strong>¡Tu lugar en el Club SHOC está oficialmente reservado!</strong></p>
-    <ul>
-      <li>Acceso anticipado a colecciones limitadas</li>
-      <li>Ediciones exclusivas solo para miembros</li>
-      <li>Hub de experiencias digitales SHOC</li>
-    </ul>
-    ${city && province ? `<p>📍 Registrado desde: ${city}, ${province}</p>` : ""}
-    ${phone ? `<p>📞 Tel: ${phone}</p>` : ""}
-    <p style="margin-top:16px;">SHOC — Siempre Hay Otro Camino</p>
-  `;
-}
-
-function buildText({ name, phone, city, province }: WelcomeEmailRequest) {
-  return (
-    `Hola ${name}!\n\n` +
-    `Tu lugar en el Club SHOC está reservado.\n\n` +
-    `• Acceso anticipado a colecciones limitadas\n` +
-    `• Ediciones exclusivas solo para miembros\n` +
-    `• Hub de experiencias digitales SHOC\n` +
-    (city && province ? `\nUbicación: ${city}, ${province}` : "") +
-    (phone ? `\nTel: ${phone}` : "") +
-    `\n\nSHOC — Siempre Hay Otro Camino`
-  );
-}
 
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -53,7 +27,7 @@ serve(async (req: Request) => {
       status: 405, headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   }
-
+  
   // validar envs
   const missing = [
     !BREVO_API_KEY && "BREVO_API_KEY",
@@ -66,7 +40,7 @@ serve(async (req: Request) => {
       status: 500, headers: { "Content-Type":"application/json", ...corsHeaders },
     });
   }
-
+  
   try {
     const body = await req.json();
     if (!body?.name || !body?.email) {
@@ -95,7 +69,7 @@ serve(async (req: Request) => {
       },
       body: JSON.stringify(brevoPayload),
     });
-
+    
     const text = await resp.text();
     let data: any = {};
     try { data = JSON.parse(text); } catch { data = { raw: text }; }
@@ -119,3 +93,30 @@ serve(async (req: Request) => {
     });
   }
 });
+function buildHtml({ name, phone, city, province }: WelcomeEmailRequest) {
+  return `
+    <h2>¡Hola ${name}! 👋</h2>
+    <p><strong>¡Tu lugar en el Club SHOC está oficialmente reservado!</strong></p>
+    <ul>
+      <li>Acceso anticipado a colecciones limitadas</li>
+      <li>Ediciones exclusivas solo para miembros</li>
+      <li>Hub de experiencias digitales SHOC</li>
+    </ul>
+    ${city && province ? `<p>📍 Registrado desde: ${city}, ${province}</p>` : ""}
+    ${phone ? `<p>📞 Tel: ${phone}</p>` : ""}
+    <p style="margin-top:16px;">SHOC — Siempre Hay Otro Camino</p>
+  `;
+}
+
+function buildText({ name, phone, city, province }: WelcomeEmailRequest) {
+  return (
+    `Hola ${name}!\n\n` +
+    `Tu lugar en el Club SHOC está reservado.\n\n` +
+    `• Acceso anticipado a colecciones limitadas\n` +
+    `• Ediciones exclusivas solo para miembros\n` +
+    `• Hub de experiencias digitales SHOC\n` +
+    (city && province ? `\nUbicación: ${city}, ${province}` : "") +
+    (phone ? `\nTel: ${phone}` : "") +
+    `\n\nSHOC — Siempre Hay Otro Camino`
+  );
+}
