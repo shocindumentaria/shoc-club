@@ -1,8 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-const BREVO_API_KEY = "FtJVy7IZrNCan1L4";
-const SENDER_EMAIL  = "shocindumentaria@gmail.com";
-const SENDER_NAME   = "SHOC";
-const BCC_EMAIL     = "shocindumentaria@gmail.com";
+const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
+const SENDER_EMAIL  = Deno.env.get("BREVO_SENDER_EMAIL");
+const SENDER_NAME   = Deno.env.get("BREVO_SENDER_NAME");
+const BCC_EMAIL     = Deno.env.get("BREVO_BCC_EMAIL");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -46,36 +46,40 @@ function buildText({ name, phone, city, province }: WelcomeEmailRequest) {
   );
 }
 
-serve(async (req: Request): Promise<Response> => {
+serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
+      status: 405, headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
+  }
+
+  // validar envs
+  const missing = [
+    !BREVO_API_KEY && "BREVO_API_KEY",
+    !SENDER_EMAIL && "BREVO_SENDER_EMAIL",
+    !SENDER_NAME && "BREVO_SENDER_NAME",
+    !BCC_EMAIL && "BREVO_BCC_EMAIL",
+  ].filter(Boolean);
+  if (missing.length) {
+    return new Response(JSON.stringify({ success:false, error:`Missing env: ${missing.join(", ")}` }), {
+      status: 500, headers: { "Content-Type":"application/json", ...corsHeaders },
     });
   }
 
   try {
-    if (!BREVO_API_KEY) {
-      return new Response(JSON.stringify({ success: false, error: "BREVO_API_KEY missing" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
-    }
-
-    const body = (await req.json()) as WelcomeEmailRequest;
+    const body = await req.json();
     if (!body?.name || !body?.email) {
       return new Response(JSON.stringify({ error: "Missing 'name' or 'email'" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        status: 400, headers: { "Content-Type":"application/json", ...corsHeaders },
       });
     }
 
     const brevoPayload = {
-      sender: { name: SENDER_NAME, email: SENDER_EMAIL },
+      sender: { name: SENDER_NAME!, email: SENDER_EMAIL! },
       to: [{ email: body.email, name: body.name }],
-      bcc: [{ email: BCC_EMAIL, name: "SHOC" }],
-      replyTo: { email: BCC_EMAIL, name: "SHOC" },
+      bcc: [{ email: BCC_EMAIL!, name: "SHOC" }],
+      replyTo: { email: BCC_EMAIL!, name: "SHOC" },
       subject: "¡Bienvenido al Club SHOC! Tu lugar está reservado",
       htmlContent: buildHtml(body),
       textContent: buildText(body),
@@ -85,32 +89,33 @@ serve(async (req: Request): Promise<Response> => {
     const resp = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {
-        "accept": "application/json",
+        accept: "application/json",
         "content-type": "application/json",
-        "api-key": BREVO_API_KEY,
+        "api-key": BREVO_API_KEY!,
       },
       body: JSON.stringify(brevoPayload),
     });
 
-    const data = await resp.json().catch(() => ({}));
+    const text = await resp.text();
+    let data: any = {};
+    try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
     if (!resp.ok) {
       console.error("[BREVO] send error:", resp.status, data);
-      return new Response(JSON.stringify({ success: false, error: data?.message || "Brevo send failed" }), {
-        status: 502,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
+      return new Response(JSON.stringify({
+        success:false,
+        error: data?.message || data?.error || `Brevo send failed (${resp.status})`,
+      }), { status: 502, headers: { "Content-Type":"application/json", ...corsHeaders }});
     }
 
-    return new Response(JSON.stringify({ success: true, messageId: data?.messageId ?? null }), {
-      status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
+    return new Response(JSON.stringify({ success:true, messageId: data?.messageId ?? null }), {
+      status: 200, headers: { "Content-Type":"application/json", ...corsHeaders },
     });
+
   } catch (err: any) {
     console.error("[BREVO] Exception:", err);
-    return new Response(JSON.stringify({ success: false, error: err?.message ?? "Unknown error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
+    return new Response(JSON.stringify({ success:false, error: err?.message ?? "Unknown error" }), {
+      status: 500, headers: { "Content-Type":"application/json", ...corsHeaders },
     });
   }
 });
