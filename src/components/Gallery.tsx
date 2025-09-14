@@ -123,7 +123,7 @@ const Gallery = () => {
         <div className="text-center mt-16">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 rounded-full">
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-            <span className="text-sm font-medium">Próximo drop: Febrero 2025</span>
+            <span className="text-sm font-medium">Próximo drop: Septiembre 2025</span>
           </div>
         </div>
       </div>
