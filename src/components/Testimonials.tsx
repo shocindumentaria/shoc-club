@@ -14,15 +14,6 @@ const Testimonials = () => {
       verified: true,
     },
     {
-      id: 2,
-      name: "Sofia Gutierrez",
-      location: "Salta, Argentina", 
-      rating: 5,
-      comment: "Los eventos son únicos, conocí gente increíble. La comunidad SHOC es lo mejor que me pasó este año.",
-      avatar: "SG",
-      verified: true,
-    },
-    {
       id: 3,
       name: "Diego Morales",
       location: "Tucumán, Argentina",
@@ -39,15 +30,6 @@ const Testimonials = () => {
       comment: "Las sorpresas mensuales siempre me emocionan. Es como recibir un regalo de cumpleaños cada mes.",
       avatar: "CT",
       verified: false,
-    },
-    {
-      id: 5,
-      name: "Lucas Fernandez",
-      location: "Catamarca, Argentina",
-      rating: 5,
-      comment: "La certificación digital me da mucha confianza. Sé que cada prenda es auténtica y exclusiva.",
-      avatar: "LF",
-      verified: true,
     },
   ];
 

@@ -10,7 +10,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "¿Qué incluye exactamente la membresía Club SHOC?",
-      answer: "Tu membresía incluye beneficios mensuales como prendas de edición limitada, accesorios exclusivos, acceso anticipado a colecciones limitadas, descuentos especiales, certificaciones digitales de autenticidad, y acceso al Hub Digital con experiencias exclusivas y comunidad privada donde podrás votar por futuros diseños."
+      answer: "Tu membresía incluye beneficios mensuales como prendas de edición limitada, accesorios exclusivos, acceso anticipado a colecciones limitadas, descuentos especiales, y acceso al Hub Digital con experiencias exclusivas y comunidad privada donde podrás votar por futuros diseños."
     },
     {
       question: "¿Cuánto dura la membresía y puedo renovarla?",
@@ -36,10 +36,6 @@ const FAQ = () => {
       question: "¿Qué pasa si no me gusta algún producto del drop mensual?",
       answer: "Cada drop es cuidadosamente curado por nuestro equipo de diseño. Aunque no ofrecemos cambios individuales, tu feedback es muy valioso para mejorar futuras selecciones. Los miembros participan activamente en las decisiones de diseño."
     },
-    {
-      question: "¿Cómo funciona la certificación digital de autenticidad?",
-      answer: "Cada prenda incluye un código QR único que te lleva a un certificado digital con información completa: número de serie, fecha de producción, autenticidad verificada y trazabilidad completa del producto."
-    }
   ];
 
   return (

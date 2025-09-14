@@ -64,14 +64,14 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
             >
               Sumarme al Club
             </Button>
-            <Button 
+            {/* <Button 
               variant="outline" 
               size="lg" 
               className="btn-secondary text-lg px-8 py-6 min-w-[240px]"
               onClick={onWhatsAppClick}
             >
               Quiero info por WhatsApp
-            </Button>
+            </Button> */}
           </div>
 
           {/* Social Proof */}

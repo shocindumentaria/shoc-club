@@ -50,12 +50,12 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
     consentTerms: false,
   });
 
-  const provinces = [
-    "Jujuy", "Salta", "Tucumán", "Catamarca", "La Rioja", "Santiago del Estero",
-    "Buenos Aires", "CABA", "Córdoba", "Santa Fe", "Entre Ríos", "Corrientes",
-    "Misiones", "Formosa", "Chaco", "Mendoza", "San Juan", "San Luis",
-    "Neuquén", "Río Negro", "Chubut", "Santa Cruz", "Tierra del Fuego"
-  ];
+  // const provinces = [
+  //   "Jujuy", "Salta", "Tucumán", "Catamarca", "La Rioja", "Santiago del Estero",
+  //   "Buenos Aires", "CABA", "Córdoba", "Santa Fe", "Entre Ríos", "Corrientes",
+  //   "Misiones", "Formosa", "Chaco", "Mendoza", "San Juan", "San Luis",
+  //   "Neuquén", "Río Negro", "Chubut", "Santa Cruz", "Tierra del Fuego"
+  // ];
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -63,7 +63,18 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+  
+    // Validación de campos requeridos
+    if (!formData.name.trim() || !formData.email.trim()) {
+      toast({
+        title: "Campos requeridos",
+        description: "Debes completar tu nombre y tu email.",
+        variant: "destructive",
+      });
+      return;
+    }
+  
+    // Validación de términos
     if (!formData.consentTerms) {
       toast({
         title: "Términos requeridos",
@@ -72,9 +83,9 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
       });
       return;
     }
-
+  
     const result = await submitLead(formData);
-    
+  
     if (result.success) {
       // Reset form
       setFormData({
@@ -87,10 +98,22 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
         consentWhatsApp: false,
         consentTerms: false,
       });
-      
+  
       onClose();
+  
+      toast({
+        title: "¡Registro exitoso!",
+        description: "Tu lugar en el Club SHOC fue reservado.",
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: result.error || "Ocurrió un problema al enviar tu registro.",
+        variant: "destructive",
+      });
     }
   };
+  
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -151,7 +174,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
           <div className="space-y-2">
             <Label htmlFor="phone" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              WhatsApp (opcional)
+              Telefono (opcional)
             </Label>
             <Input
               id="phone"
@@ -164,7 +187,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
           </div>
 
           {/* Location */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="city" className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -193,7 +216,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
                 </SelectContent>
               </Select>
             </div>
-          </div>
+          </div> */}
 
           {/* Consents */}
           <div className="space-y-4">
@@ -208,7 +231,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
               </Label>
             </div>
 
-            <div className="flex items-start space-x-3">
+            {/* <div className="flex items-start space-x-3">
               <Checkbox
                 id="whatsapp-consent"
                 checked={formData.consentWhatsApp}
@@ -217,7 +240,7 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
               <Label htmlFor="whatsapp-consent" className="text-sm leading-relaxed">
                 Acepto recibir mensajes por WhatsApp
               </Label>
-            </div>
+            </div> */}
 
             <div className="flex items-start space-x-3">
               <Checkbox
@@ -247,7 +270,12 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
           <Button
             type="submit"
             className="w-full btn-hero py-6 text-lg"
-            disabled={isSubmitting || !formData.consentTerms}
+            disabled={
+              isSubmitting ||
+              !formData.name.trim() ||
+              !formData.email.trim() ||
+              !formData.consentTerms
+            }
           >
             {isSubmitting ? (
               <>

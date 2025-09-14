@@ -62,11 +62,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <a href="https://wa.me/5493885123456">+54 9 388 512-3456</a>
+                <a href="https://wa.me/5493884136752">+54 9 388-413-6752</a>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <a href="mailto:hola@shoc.com.ar">hola@shoc.com.ar</a>
+                <a href="mailto:shocindumentaria@gmail.com">shocindumentaria@gmail.com</a>
               </div>
             </div>
           </div>
@@ -125,7 +125,7 @@ const Footer = () => {
         </div>
 
         {/* Cookie Notice - Simple */}
-        <div className="mt-8 p-4 bg-card/50 border border-border rounded-xl backdrop-blur-sm">
+        {/* <div className="mt-8 p-4 bg-card/50 border border-border rounded-xl backdrop-blur-sm">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
               <strong>🍪 Cookies:</strong> Usamos cookies para mejorar tu experiencia. 
@@ -140,7 +140,7 @@ const Footer = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

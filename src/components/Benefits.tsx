@@ -15,7 +15,7 @@ const Benefits = () => {
       icon: Package,
       title: "Drops Mensuales",
       description: "Prendas y accesorios exclusivos, curados y numerados por nuestro equipo de diseño.",
-      features: ["Prendas limitadas", "Numeración exclusiva", "Certificado de autenticidad"],
+      features: ["Prendas limitadas","Sin restock", "Unicas como vos"],
       gradient: "from-primary/20 to-primary/5",
     },
     {
@@ -45,13 +45,6 @@ const Benefits = () => {
       description: "Cajas temáticas trimestrales con productos especiales y códigos de descuento ocultos.",
       features: ["Cajas temáticas", "Productos especiales", "Códigos exclusivos"],
       gradient: "from-accent/15 to-transparent",
-    },
-    {
-      icon: Package,
-      title: "Certificación Digital",
-      description: "Cada prenda incluye QR único y certificado digital que garantiza autenticidad.",
-      features: ["QR de autenticidad", "Certificado digital", "Trazabilidad completa"],
-      gradient: "from-secondary/30 to-transparent",
     },
   ];
 

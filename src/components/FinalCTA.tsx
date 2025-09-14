@@ -106,7 +106,7 @@ const FinalCTA = ({ onJoinClick }: FinalCTAProps) => {
           </div>
 
           {/* Risk Reversal */}
-          <div className="mt-16 p-6 bg-gradient-to-r from-card/50 to-secondary/20 border border-border rounded-2xl backdrop-blur-sm max-w-2xl mx-auto">
+          {/* <div className="mt-16 p-6 bg-gradient-to-r from-card/50 to-secondary/20 border border-border rounded-2xl backdrop-blur-sm max-w-2xl mx-auto">
             <h3 className="font-semibold font-montserrat mb-3">
               🛡️ Garantía de satisfacción
             </h3>
@@ -114,7 +114,7 @@ const FinalCTA = ({ onJoinClick }: FinalCTAProps) => {
               Si en los primeros 7 días no estás completamente satisfecho con tu bienvenida al Club SHOC, 
               te devolvemos el 100% de tu inversión sin preguntas.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

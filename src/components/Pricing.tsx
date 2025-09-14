@@ -18,13 +18,12 @@ interface PricingProps {
 
 const Pricing = ({ onJoinClick }: PricingProps) => {
   const includedFeatures = [
-    { icon: Crown, text: "1 prenda limitada por mes" },
-    { icon: Gift, text: "1 accesorio sorpresa mensual" },
+    { icon: Crown, text: "1 prenda exclusiva por mes" },
+    { icon: Gift, text: "1 accesorio mensual" },
     { icon: Calendar, text: "Acceso anticipado a colecciones" },
-    { icon: Zap, text: "Descuentos exclusivos hasta 40%" },
+    { icon: Zap, text: "Descuentos exclusivos hasta 50%" },
     { icon: Users, text: "Hub digital de experiencias SHOC" },
     { icon: Check, text: "Ediciones exclusivas solo para miembros" },
-    { icon: Check, text: "Certificación digital de autenticidad" },
     { icon: Check, text: "Prioridad en drops limitados" },
   ];
 
@@ -43,15 +42,15 @@ const Pricing = ({ onJoinClick }: PricingProps) => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-card via-secondary/20 to-card shadow-[var(--shadow-premium)] animate-glow">
+          <Card className="relative overflow-visible border-0 bg-gradient-to-br from-card via-secondary/20 to-card shadow-[var(--shadow-premium)] animate-glow">
             {/* Premium Badge */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <Badge className="bg-primary text-primary-foreground px-6 py-2 text-sm font-semibold">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+              <Badge className="bg-primary text-primary-foreground px-6 py-2 text-xs font-semibold tracking-wide shadow">
                 PRELANZAMIENTO
               </Badge>
             </div>
 
-            <div className="p-8 md:p-12">
+            <div className="p-8 md:p-12 pt-14 md:pt-16">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Pricing Info */}
                 <div className="text-center lg:text-left">
