@@ -82,7 +82,7 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span>Primera cohorte: Septiembre 2025</span>
+              <span>Siguente cohorte: Septiembre 2025</span>
             </div>
           </div>
         </div>

@@ -21,7 +21,7 @@ const Benefits = () => {
     {
       icon: Zap,
       title: "Acceso Anticipado a Colecciones Limitadas",
-      description: "Primera oportunidad exclusiva para acceder a nuestras colecciones más limitadas antes que nadie.",
+      description: "Siguente oportunidad exclusiva para acceder a nuestras colecciones más limitadas antes que nadie.",
       features: ["Acceso 48h antes", "Colecciones exclusivas", "Stock garantizado"],
       gradient: "from-accent/20 to-accent/5",
     },

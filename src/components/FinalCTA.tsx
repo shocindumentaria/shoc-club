@@ -29,13 +29,13 @@ const FinalCTA = ({ onJoinClick }: FinalCTAProps) => {
             </Badge>
             <Badge className="badge-exclusive">
               <Zap className="w-4 h-4 mr-2" />
-              Primera cohorte
+              Siguente cohorte
             </Badge>
           </div>
 
           {/* Main Heading */}
           <h2 className="heading-hero mb-8">
-            Sumate a la primera
+            Sumate a la siguiente
             <br />
             <span className="text-transparent bg-gradient-to-r from-primary via-primary to-accent bg-clip-text">
               cohorte del Club SHOC

@@ -128,11 +128,11 @@ const LeadModal = ({ isOpen, onClose }: LeadModalProps) => {
             Unite al Club SHOC
           </DialogTitle>
           <DialogDescription className="text-base">
-            Asegurate tu lugar en la primera cohorte exclusiva.
+            Asegurate tu lugar en la siguiente cohorte exclusiva.
           </DialogDescription>
           <div className="flex justify-center gap-2 mt-4">
             <Badge className="badge-limited">Cupos limitados</Badge>
-            <Badge className="badge-exclusive">Primera cohorte</Badge>
+            <Badge className="badge-exclusive">Siguente cohorte</Badge>
           </div>
         </DialogHeader>
 

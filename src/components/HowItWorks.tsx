@@ -42,7 +42,7 @@ const HowItWorks = () => {
     {
       icon: Calendar,
       title: "Acceso anticipado",
-      description: "Primera oportunidad a colecciones limitadas",
+      description: "Siguente oportunidad a colecciones limitadas",
     },
     {
       icon: Gift,
