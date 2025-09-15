@@ -66,17 +66,17 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
 
           {/* Main Heading */}
           <h1 className="heading-hero">
-            El camino exclusivo
+              Lo que viene no se repite.
             <br />
             <span className="text-transparent bg-gradient-to-r from-primary to-primary/70 bg-clip-text">
-              empieza acá
+              Asegurá tu lugar ahora.
             </span>
           </h1>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Suscribite al prelanzamiento y asegurá tu lugar en la membresía trimestral 
-            con drops, regalos y entradas a eventos exclusivos.
+            Suscribite al prelanzamiento y asegurá tu lugar en la membresía trimestral con drops limitados, 
+            regalos sorpresa y descuentos exclusivos para vos.
           </p>
 
           {/* CTA Buttons */}
