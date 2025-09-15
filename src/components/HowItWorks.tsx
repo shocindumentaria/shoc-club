@@ -37,7 +37,7 @@ const HowItWorks = () => {
     {
       icon: Crown,
       title: "Ediciones limitadas",
-      description: "Prendas numeradas y certificadas",
+      description: "Prendas numeradas y unicas",
     },
     {
       icon: Calendar,

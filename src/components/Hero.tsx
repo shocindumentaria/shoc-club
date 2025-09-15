@@ -60,7 +60,7 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
             </Badge>
             <Badge className="badge-exclusive">
               <Zap className="w-4 h-4 mr-2" />
-              Ediciones certificadas
+              Ediciones limitadas
             </Badge>
           </div>
 
