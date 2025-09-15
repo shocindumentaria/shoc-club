@@ -85,12 +85,12 @@ const FAQ = () => {
               >
                 Email
               </a>
-              <a 
+              {/* <a 
                 href="https://wa.me/5493885123456?text=Tengo%20una%20consulta%20sobre%20Club%20SHOC" 
                 className="px-4 py-2 bg-accent/20 text-accent border border-accent/30 rounded-xl hover:bg-accent/30 transition-colors text-sm font-medium"
               >
                 WhatsApp
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

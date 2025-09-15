@@ -104,12 +104,12 @@ const Benefits = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/20 text-accent rounded-full text-sm font-medium">
             <Zap className="w-4 h-4" />
             Valor total estimado: +$200.000 por trimestre
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

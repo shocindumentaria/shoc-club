@@ -25,16 +25,16 @@ const Index = () => {
     setIsModalOpen(true);
   };
 
-  const handleWhatsAppClick = () => {
-    trackAnalytics('cta_click', { cta_type: 'whatsapp', location: 'hero' });
-    const message = encodeURIComponent("Quiero unirme al Club SHOC (prelanzamiento)");
-    window.open(`https://wa.me/5493885123456?text=${message}`, '_blank');
-  };
+  // const handleWhatsAppClick = () => {
+  //   trackAnalytics('cta_click', { cta_type: 'whatsapp', location: 'hero' });
+  //   const message = encodeURIComponent("Quiero unirme al Club SHOC (prelanzamiento)");
+  //   window.open(`https://wa.me/5493885123456?text=${message}`, '_blank');
+  // };
 
   return (
     <div className="min-h-screen bg-background">
       {/* SEO Meta Tags would be handled in index.html */}
-      <Hero onJoinClick={handleJoinClick} onWhatsAppClick={handleWhatsAppClick} />
+      <Hero onJoinClick={handleJoinClick} />
       <HowItWorks />
       <Benefits />
       <Pricing onJoinClick={handleJoinClick} />

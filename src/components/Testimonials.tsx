@@ -34,7 +34,7 @@ const Testimonials = () => {
   ];
 
   const stats = [
-    { number: "250+", label: "En lista de espera" },
+    { number: "80+", label: "En lista de espera" },
     { number: "4.9", label: "Calificación promedio" },
     { number: "98%", label: "Satisfacción" },
   ];

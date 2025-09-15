@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Gift, Zap, Calendar } from "lucide-react";
-import heroImage from "@/assets/hero-grid2.png";
+import comercialShoc from "@/assets/comercialSHOC.mp4";
+import heroGrid2 from "@/assets/hero-grid2.png";
+import ShocBgVideo from "./VideoHero";
 
 interface HeroProps {
   onJoinClick: () => void;
@@ -13,11 +15,33 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img 
+        {/* <img 
           src={heroImage} 
           alt="SHOC Premium Collection" 
           className="w-full h-full object-cover"
-        />
+        /> */}
+        <video
+              className="
+                absolute inset-0 h-full w-full
+                object-cover
+                object-[50%_40%]
+                md:object-center
+              "
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              controls={false}
+              controlsList="nodownload noplaybackrate"
+              // poster={heroGrid2}  /* opcional */
+            >
+              <source src={comercialShoc} type="video/mp4" />
+              {/* si tenés WebM, agregalo arriba de MP4 */}
+              {/* <source src="/videos/comercial-shoc.webm" type="video/webm" /> */}
+              Tu navegador no soporta video HTML5.
+            </video>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/95" />
       </div>
 
@@ -78,7 +102,7 @@ const Hero = ({ onJoinClick, onWhatsAppClick }: HeroProps) => {
           <div className="pt-12 flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <span>+250 en lista de espera</span>
+              <span>+80 en lista de espera</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />

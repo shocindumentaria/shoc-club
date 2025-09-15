@@ -135,7 +135,7 @@ const Gallery = () => {
     <section className="py-24 bg-gradient-to-b from-card/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="badge-limited mb-6">Preview</Badge>
+          {/* <Badge className="badge-limited mb-6">Preview</Badge> */}
           <h2 className="heading-section mb-6">
             Un vistazo a lo que <span className="text-primary"> te espera</span>
           </h2>
