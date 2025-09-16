@@ -37,11 +37,11 @@ const Index = () => {
       <Hero onJoinClick={handleJoinClick} />
       <HowItWorks />
       <Benefits />
-      <Pricing onJoinClick={handleJoinClick} />
+      <FinalCTA onJoinClick={handleJoinClick} />
       <Gallery />
       <Testimonials />
       <FAQ />
-      <FinalCTA onJoinClick={handleJoinClick} />
+      {/* <Pricing onJoinClick={handleJoinClick} /> */}
       <Footer />
       <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Timer, Users, Zap } from "lucide-react";
+import ShocCountdown from "./ShocCountdown";
 
 interface FinalCTAProps {
   onJoinClick: () => void;
@@ -49,34 +50,17 @@ const FinalCTA = ({ onJoinClick }: FinalCTAProps) => {
             <strong className="text-foreground">No te quedes afuera</strong> de esta experiencia única.
           </p>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold font-montserrat text-primary mb-2">87</div>
-              <div className="text-sm text-muted-foreground">Lugares ocupados</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold font-montserrat text-accent mb-2">13</div>
-              <div className="text-sm text-muted-foreground">Lugares disponibles</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold font-montserrat text-primary mb-2">7</div>
-              <div className="text-sm text-muted-foreground">Días restantes</div>
-            </div>
-          </div>
-
+          
           {/* Progress Bar */}
           <div className="max-w-md mx-auto mb-12">
-            <div className="flex justify-between text-sm text-muted-foreground mb-2">
-              <span>Progreso de inscripciones</span>
-              <span>87%</span>
-            </div>
-            <div className="w-full bg-secondary/30 rounded-full h-3">
-              <div 
-                className="bg-gradient-to-r from-primary to-accent h-3 rounded-full transition-all duration-1000 animate-pulse" 
-                style={{ width: '87%' }}
-              />
-            </div>
+          <ShocCountdown
+            targetISO="2025-09-21T08:00:00-03:00"
+            progressStartISO="2025-09-07T00:00:00-03:00" // opcional: inicio de la preventa para la barra
+            onFinish={() => {
+              // Podés deshabilitar el botón o abrir modal de “Cerrado”
+              // document.dispatchEvent(new CustomEvent("shoc:countdown-finished"));
+            }}
+          />  
           </div>
 
           {/* CTA Button */}

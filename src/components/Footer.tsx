@@ -14,7 +14,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Instagram, href: "https://instagram.com/shoc.official", label: "Instagram" },
+    { icon: Instagram, href: "https://instagram.com/shoc.indumentaria", label: "Instagram" },
     { icon: Twitter, href: "https://twitter.com/shoc_oficial", label: "Twitter" },
     { icon: Mail, href: "mailto:hola@shoc.com.ar", label: "Email" },
   ];

@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Gift, Zap, Calendar } from "lucide-react";
 import comercialShoc from "@/assets/comercialSHOC.mp4";
-import heroGrid2 from "@/assets/hero-grid2.png";
-import ShocBgVideo from "./VideoHero";
+
 
 interface HeroProps {
   onJoinClick: () => void;
