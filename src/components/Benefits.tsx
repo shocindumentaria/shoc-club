@@ -46,6 +46,14 @@ const Benefits = () => {
       features: ["Cajas temáticas", "Productos especiales", "Códigos exclusivos"],
       gradient: "from-accent/15 to-transparent",
     },
+    {
+      icon: Zap,
+      title: "Envío Prioritario Gratuito",
+      description: "Tus prendas siempre llegan primero y sin costo adicional, con seguimiento premium.",
+      features: ["Sin cargos ocultos", "Entrega más rápida", "Prioridad en envíos"],
+      gradient: "from-accent/20 to-transparent",
+    },
+    
   ];
 
   return (
